@@ -3,8 +3,7 @@ $(document).ready(function () {
     // todays time
     var today = moment().format("YYYY MMM DDD");
     // hours 
-    var Hours24 = moment().format("H");
-    var Hours12 = moment().format("h");
+    var nowTime = moment().format("H");
     var ampm = "";
     var displayHour = 0;
     var Hours = ['9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM', '4PM', '5PM'];
@@ -19,43 +18,36 @@ $(document).ready(function () {
     } else {
         Usertext = newArray(9);
     }
-
-    // calling into planner-container
-    var $scheduleDiv = $("planner-container");
-    $scheduleDiv.empty();
-    //calling hours
-   for (var hour = 9; hour <= 17; hour++) {
-        var index = hour - 9;
-
-        var $timeElementSpn = $("<span>");
-        $timeElementSpn.attr("class", "timeElement");
-        // display the time
-        if (hour > 12) {
-            displayHour = hour - 12;
-            ampm = "pm";
+    // updating textarea
+    //time loop
+   for (var i=0; i < Hours.length; i++) {
+    function updatetime(){
+        if (Hours < today){
+            $("#" + Hours[i]).attr("#.past");
+            
+        } else if (Hours > today){
+        $("#" + Hours[i]).attr("#.future");
         } else {
-            displayHour = hour;
-            ampm = "am";
+            if ( Hours[i] == today){
+                $("#"+ Hours[i].attr("#.present"))
+
+            }
         }
-        $timeElementSpn.text("${displayhour} ${ampm}")
+        console.log(updatetime)
     }
-
-    //building the rows
-    var $dailyplanspn = $("<input>");
-    $dailyplanspn.attr("id,inpute")
-
-    // stored times  
+   updatetime();
+}
 
     // saved button
-    $(".savedbtn").on("click", function (e) {
+    $(".savedBtn").on("click", function(e) {
         //console.log("text")
         var savedbtn = $(this)
         var key = savedbtn.parent().attr("id")
         var value = savedbtn.parent().children("text")
+        //SaveBTNlocal drive
         localStorage.setItem(key, value)
         //console.log(key)
     })
-    //local drive
 
 
 
