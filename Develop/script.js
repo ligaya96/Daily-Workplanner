@@ -4,51 +4,57 @@ $(document).ready(function () {
     var today = moment().format("YYYY MMM DDD");
     // hours 
     var nowTime = moment().format("H");
-    var ampm = "";
-    var displayHour = 0;
     var Hours = ['9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM', '4PM', '5PM'];
     //header time
     var $todayHeader = $("#currentDay");
     $todayHeader.text(today);
-
-    //storing the todos 
+    
+    // //storing the todos 
     var todos = JSON.parse(localStorage.getItem("todos"));
     if (todos !== null) {
         Usertext = todos;
     } else {
         Usertext = newArray(9);
     }
-    // updating textarea
+    // updating userInput
+    $(document).on("click","i", function(event){
+        event.preventDefault();
+        Usertext = localStorage.getItem("todos")
+          
+       $(".time-block").each(function() {
+         nowTime = $(this).attr("input");
+        todos = localStorage.getItem(todos);
+         $(this).find("id").val(todos);
+           });
+    });
     //time loop
    for (var i=0; i < Hours.length; i++) {
+
+    //updating the current time with change of backgroud color
     function updatetime(){
         if (Hours < today){
-            $("#" + Hours[i]).attr("#.past");
+            $(Hours[i]).attr("#.past");
             
         } else if (Hours > today){
-        $("#" + Hours[i]).attr("#.future");
+        $( Hours[i]).attr("#.future");
         } else {
             if ( Hours[i] == today){
-                $("#"+ Hours[i].attr("#.present"))
+                $(Hours[i].attr("#.present"))
 
             }
         }
-        console.log(updatetime)
+       // console.log(updatetime)
     }
    updatetime();
 }
 
-    // saved button
-    $(".savedBtn").on("click", function(e) {
-        //console.log("text")
-        var savedbtn = $(this)
-        var key = savedbtn.parent().attr("id")
-        var value = savedbtn.parent().children("text")
-        //SaveBTNlocal drive
-        localStorage.setItem(key, value)
-        //console.log(key)
-    })
-
-
+//savedbtn using "this"
+$(".savedBtn").on("click", function(event) {
+    event.preventDefault();
+     nowTime =  $(this).parent().attr("id");
+     todos = $(this).parent().find("input").val();
+    localStorage.setItem(nowTime, todos);
+    });
+  
 
 });
