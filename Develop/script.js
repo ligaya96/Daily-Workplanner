@@ -51,9 +51,10 @@ $(document).ready(function () {
 //savedbtn using "this"
 $(".savedBtn").on("click", function(event) {
     event.preventDefault();
-     nowTime =  $(this).parent().attr("id");
+     savedBtn =  $(this).parent().attr("id");
      todos = $(this).parent().find("input").val();
-    localStorage.setItem(nowTime, todos);
+    localStorage.setItem(savedBtn, todos);
+    //console.log(savedBtn)
     });
   
 
